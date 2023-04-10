@@ -1,0 +1,216 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font: normal 18px 'Open Sans', sans-serif;
+  color: #333;
+
+}
+
+
+.mainn {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  background: -webkit-linear-gradient(left, #a42cee, #2770f6);
+  padding-top: 100px;
+  padding-bottom: 170px;
+}
+
+
+.wrapperr {
+  overflow: hidden;
+  max-width: 390px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+
+}
+
+.wrapperr .title-text {
+  display: flex;
+  width: 200%;
+}
+
+.wrapperr .title {
+  width: 50%;
+  font-size: 35px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.wrapperr .title-text .verify-otp{
+  margin-left: 25px;
+}
+
+.wrapperr .slide-controls {
+  position: relative;
+  display: flex;
+  height: 50px;
+  width: 100%;
+  overflow: hidden;
+  margin: 30px 0 10px 0;
+  justify-content: space-between;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+}
+
+.slide-controls .slide {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 48px;
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.6s ease;
+}
+
+.slide-controls label.verify-otp {
+  color: #000;
+}
+
+.slide-controls .slider-tabb {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  left: 0;
+  z-index: 0;
+  border-radius: 5px;
+  background: -webkit-linear-gradient(left, #a120f0, #4242fa);
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+#mobile:checked~label.verify-otp {
+  color: #000;
+}
+
+#mobile:checked~label.mobile {
+  cursor: default;
+  user-select: none;
+}
+
+.wrapperr .form-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.form-container .form-inner {
+  display: flex;
+  width: 200%;
+}
+
+.form-container .form-inner form {
+  width: 50%;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-inner form .fieldd {
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form-inner form .fieldd input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  border-bottom-width: 2px;
+  font-size: 17px;
+  transition: all 0.3s ease;
+}
+
+.form-inner form .fieldd input:focus {
+  border-color: #a120f0;
+  /* box-shadow: inset 0 0 3px #fb6aae; */
+}
+
+.form-inner form .fieldd input::placeholder {
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+form .fieldd input:focus::placeholder {
+  color: #b3b3b3;
+}
+
+.form-inner form .pass-linkk {
+  margin-top: 5px;
+}
+
+.form-inner form .student-link {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.form-inner form .pass-linkk a,
+.form-inner form .student-link a {
+  color: #a120f0;
+  text-decoration: none;
+}
+
+.form-inner form .pass-linkk a:hover,
+.form-inner form .student-link a:hover {
+  text-decoration: underline;
+}
+
+form .btn {
+  height: 50px;
+  width: 100%;
+  border-radius: 7px;
+  position: relative;
+  overflow: hidden;
+}
+
+form .btn .btn-layerr {
+  height: 100%;
+  width: 300%;
+  position: absolute;
+  left: -100%;
+  background: -webkit-linear-gradient(right,
+      #a120f0, #4242fa, #a120f0, #4242fa);
+  border-radius: 5px;
+  transition: all 0.4s ease;
+}
+
+form .btn:hover .btn-layerr {
+  left: 0;
+}
+
+form .btn input[type="submit"] {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+  background: none;
+  border: none;
+  color: #fff;
+  padding-left: 0;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
