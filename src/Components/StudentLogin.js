@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase';
+import Aos from 'aos'
 
 const StudentLogin = (props) => {
 
@@ -50,6 +51,7 @@ const StudentLogin = (props) => {
     }
 
     useEffect(() => {
+        Aos.init();
         loginClick()
     }, [])
 
@@ -174,7 +176,7 @@ const StudentLogin = (props) => {
     return (
         <>
             <div className="main">
-                <div className="wrapper">
+                <div className="wrapper" data-aos="zoom-in" data-aos-delay="100">
                     <div className="title-text">
                         <div className="title login" style={{ marginLeft: textMargin }}>
                             Student Login
