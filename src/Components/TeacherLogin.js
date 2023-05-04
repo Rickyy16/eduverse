@@ -12,7 +12,7 @@ import Aos from 'aos';
 
 const TeacherLogin = () => {
 
-    const [formMargin, setFormMargin] = useState("-5%");
+    const [formMargin, setFormMargin] = useState("-10%");
     const [textMargin, setTextMargin] = useState("");
 
     const [sliderTab, setSliderTab] = useState("")

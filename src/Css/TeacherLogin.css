@@ -22,12 +22,10 @@ body {
 
 .mainn {
   display: grid;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   place-items: center;
   background: -webkit-linear-gradient(left, #a42cee, #2770f6);
-  padding-top: 100px;
-  padding-bottom: 170px;
 }
 
 

@@ -21,12 +21,10 @@
 
 .main {
   display: grid;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   place-items: center;
   background: -webkit-linear-gradient(left, #a120f0, #4242fa);
-  padding-top: 40px;
-  padding-bottom: 95px;
 }
 
 

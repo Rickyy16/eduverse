@@ -14,10 +14,10 @@ const Landing = () => {
     
     return (
         <>
-            <div className="mainDiv">
+            <div className="mainDiv d-flex align-items-center justify-content-center">
                 <div className="container col-lg-9" data-aos="fade-down" data-aos-delay="">
                     <div className="row gy-5 d-flex justify-content-around">
-                        <div className="col-xl-6 col-md-6 d-flex justify-content-center innerDiv" data-aos="zoom-in" data-aos-delay="200">
+                        <div className="col-xl-6 col-md-6 d-flex justify-content-center mt-1 mb-1  innerDiv" data-aos="zoom-in" data-aos-delay="200">
                             <Link to="/studentLogin">
                                 <div className="items">
                                     <div className="img">
@@ -30,7 +30,7 @@ const Landing = () => {
                             </Link>
                         </div>
 
-                        <div className="col-xl-6 col-md-6 d-flex justify-content-center innerDiv" data-aos="zoom-in" data-aos-delay="200">
+                        <div className="col-xl-6 col-md-6 d-flex justify-content-center mt-1 mb-1 innerDiv" data-aos="zoom-in" data-aos-delay="200">
                             <Link to="/teacherlogin">
                                 <div className="items">
                                     <div className="img">
