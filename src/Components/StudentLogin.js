@@ -211,7 +211,7 @@ const StudentLogin = (props) => {
                                 </div>
                                 <div className="field btn">
                                     <div className="btn-layer"></div>
-                                    <input type="submit" value="Login" id="login-Btn" onClick={handleLoginSubmit} />
+                                    <button type="submit" id="login-Btn" onClick={handleLoginSubmit}>Login</button>
                                 </div>
                                 <div className="signup-link">
                                     Not a member? <Link to="/" id="signuplink" onClick={signUpLinkClick}>Signup now</Link>
@@ -232,7 +232,7 @@ const StudentLogin = (props) => {
                                 </div>
                                 <div className="field btn">
                                     <div className="btn-layer"></div>
-                                    <input type="submit" value="Signup" id="signup-Btn" onClick={handleSignupSubmit} />
+                                    <button type="submit" id="signup-Btn" onClick={handleSignupSubmit} >Sign Up</button>
                                 </div>
                             </form>
                         </div>
