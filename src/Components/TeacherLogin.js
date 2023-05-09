@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import "../Css/TeacherLogin.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../Firebase/Firebase';
-
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { BsTelephoneFill } from "react-icons/bs";
 import OtpInput from "otp-input-react";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'
 import Aos from 'aos';
+import { Toaster, toast } from 'react-hot-toast';
 
 const TeacherLogin = () => {
 
@@ -35,9 +36,10 @@ const TeacherLogin = () => {
             setSliderTab("50%")
             setLableMobile(["#fff", "default", "none"])
             setLableVerifyOtp("#000")
+            // handleSendCode()
         }
         else {
-            alert("Please Enter Mobile Number")
+            toast.error("Please Enter Mobile Number")
         }
     }
 
@@ -59,29 +61,62 @@ const TeacherLogin = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+
     }
 
     const handleSendCode = (e) => {
         e.preventDefault()
         if (mobileInput !== null) {
-            setFormMargin("-50%")
-            setTextMargin("-55%")
-            setSliderTab("50%")
-            setLableMobile(["#fff", "default", "none"])
-            setLableVerifyOtp("#000")
+            onCaptchaVerify()
+            console.log(window.recaptchaVerifier,"77777777777777777777")
+            const appVerifier = window.recaptchaVerifier
+
+            const formatMobileInput = "+" + mobileInput
+            signInWithPhoneNumber(auth, formatMobileInput, appVerifier)
+                .then((confirmationResult) => {
+                    // SMS sent. Prompt user to type the code from the message, then sign the
+                    // user in with confirmationResult.confirm(code).
+                    window.confirmationResult = confirmationResult;
+                    // ...
+                    setFormMargin("-50%")
+                    setTextMargin("-55%")
+                    setSliderTab("50%")
+                    setLableMobile(["#fff", "default", "none"])
+                    setLableVerifyOtp("#000")
+                    toast.success("OTP Sent Successfully")
+                }).catch((error) => {
+                    toast.error(error)
+                });
         }
         else {
-            alert("Please Enter Mobile Number")
+            toast.error("Please Enter Mobile Number")
         }
+    }
 
-
-
+    const onCaptchaVerify = () => {
+        if (!window.recaptchaVerifier) {
+            window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+                'size': 'normal',
+                'callback': (response) => {
+                    handleSendCode()
+                },
+                'expired-callback': () => {
+                    // Response expired. Ask user to solve reCAPTCHA again.
+                    // ...
+                }
+            }, auth);
+        }
     }
 
     return (
         <>
             <div className="mainn">
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                />
+                <div id="recaptcha-container" ></div>
+
                 <div className="wrapperr" data-aos="zoom-in" data-aos-delay="100">
                     <div className="title-text">
                         <div className="title mobile" style={{ marginLeft: textMargin }}>

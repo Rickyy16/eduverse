@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase';
 import Aos from 'aos'
+import { Toaster, toast } from 'react-hot-toast';
 
 const StudentLogin = (props) => {
 
@@ -15,7 +16,7 @@ const StudentLogin = (props) => {
     const [lableSignup, setLableSignup] = useState([])
     const [lableLogin, setLableLogin] = useState("")
 
-    
+
     const navigate = useNavigate()
 
     // Reserve States For Signup Credentials
@@ -95,19 +96,19 @@ const StudentLogin = (props) => {
 
     const setLocalStorage = () => {
 
-            auth.onAuthStateChanged(async (user) => {
-                console.log(user, "userrrrrrrrrlocal")
-                if (user) {
-                    localStorage.setItem("token", user.accessToken)
-                    localStorage.setItem("emailId", user.email)
-                    localStorage.setItem("userName", user.displayName)
-                    localStorage.setItem("userId", user.uid)
-                }
-                else {
-                    console.log("LocalStorage No Data")
-                }
-            })
-    
+        auth.onAuthStateChanged(async (user) => {
+            console.log(user, "userrrrrrrrrlocal")
+            if (user) {
+                localStorage.setItem("token", user.accessToken)
+                localStorage.setItem("emailId", user.email)
+                localStorage.setItem("userName", user.displayName)
+                localStorage.setItem("userId", user.uid)
+            }
+            else {
+                console.log("LocalStorage No Data")
+            }
+        })
+
 
     }
 
@@ -119,12 +120,11 @@ const StudentLogin = (props) => {
                 createUserWithEmailAndPassword(auth, signupInput.email, signupInput.password)
                     .then((result) => {
                         // Signed in 
-                        console.log("Signed Up Succesfully")
                         updateDisplayName()
                         console.log(result)
                         loginClick()
                         setSignupInput({ name: "", email: "", password: "", password2: "" })
-                        alert("Signed Up Succesfully")
+                        toast.success("Signed Up Successfully")
 
                         // ...
                     })
@@ -136,11 +136,11 @@ const StudentLogin = (props) => {
                     });
             }
             else {
-                alert("Password Mismatched")
+                toast.error("Password Mismatched")
             }
         }
         else {
-            alert("Please Fill All the Fields")
+            toast.error("Please Fill All the Fields")
         }
     }
 
@@ -151,31 +151,31 @@ const StudentLogin = (props) => {
             signInWithEmailAndPassword(auth, loginInput.emaill, loginInput.passwordd)
                 .then((result) => {
                     // Signed in 
-                    console.log("Signed In Succesfully")
                     console.log(result)
-                    setLocalStorage() 
-                    props.handleCallBack(true)                   
+                    setLocalStorage()
+                    props.handleCallBack(true)
                     navigate("/dashboard")
-                    // alert("Signed In Succesfully")
+                    toast.success("Signed in Successfully")
 
                     // ...
                 })
                 .catch((error) => {
-                    console.log(error.code)
-                    console.log(error.message)
-                    alert(error.message)
-                    // ..
+                    toast.error(error.message)
                 });
 
         }
         else {
-            alert("Please Fill All the Fields")
+            toast.error("Please Fill All the Fields")
         }
     }
 
     return (
         <>
             <div className="main">
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                />
                 <div className="wrapper" data-aos="zoom-in" data-aos-delay="100">
                     <div className="title-text">
                         <div className="title login" style={{ marginLeft: textMargin }}>
