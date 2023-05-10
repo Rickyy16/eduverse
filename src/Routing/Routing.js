@@ -32,7 +32,7 @@ const Routing = () => {
             <Routes>
                 <Route path="/" element={!userId ? <Landing /> : <Navigate to="/dashboard" />} />
                 <Route path="/studentlogin" element={!userId ? <StudentLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
-                <Route path="/teacherlogin" element={!userId ? <TeacherLogin /> : <Navigate to="/dashboard" />} />
+                <Route path="/teacherlogin" element={!userId ? <TeacherLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
                 <Route path="/dashboard" element={userId ? <Dashboard name={userName} handleCallBack={callBack} /> : <Navigate to="/" />} />
             </Routes>
         </BrowserRouter>

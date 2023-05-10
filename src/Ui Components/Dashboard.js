@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { signOut } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase';
+import { toast } from 'react-hot-toast';
 import Navbar from './Navbar';
 import $ from 'jquery';
 import "../Css/Dashboard.css"
@@ -28,10 +29,10 @@ const Dashboard = (props) => {
             removeLocalStorage()
             props.handleCallBack(false)
             navigate("/dashboard")
-            alert("Sign Out Succesfully")
+            toast.success("Sign Out Succesfully")
         }).catch((error) => {
             // An error happened.
-            console.log(error.message)
+            toast.error(error.message)
         });
     }
 

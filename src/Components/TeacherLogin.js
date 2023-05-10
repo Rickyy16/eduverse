@@ -11,7 +11,7 @@ import 'react-phone-input-2/lib/style.css'
 import Aos from 'aos';
 import { Toaster, toast } from 'react-hot-toast';
 
-const TeacherLogin = () => {
+const TeacherLogin = (props) => {
 
     const [formMargin, setFormMargin] = useState("-10%");
     const [textMargin, setTextMargin] = useState("");
@@ -19,6 +19,7 @@ const TeacherLogin = () => {
     const [sliderTab, setSliderTab] = useState("")
     const [lablemobile, setLableMobile] = useState([])
     const [lableVerifyOtp, setLableVerifyOtp] = useState("")
+    const [hideCaptcha, setHideCaptcha] = useState("")
 
     const navigate = useNavigate()
 
@@ -29,17 +30,16 @@ const TeacherLogin = () => {
 
     //--------------------------
 
-    const otpClick = () => {
-        if (mobileInput !== "") {
+    const otpClick = (e) => {
+        if (!window.recaptchaVerifier) {
+            handleSendCode(e)
+        }
+        else {
             setFormMargin("-50%")
             setTextMargin("-55%")
             setSliderTab("50%")
             setLableMobile(["#fff", "default", "none"])
             setLableVerifyOtp("#000")
-            // handleSendCode()
-        }
-        else {
-            toast.error("Please Enter Mobile Number")
         }
     }
 
@@ -59,38 +59,47 @@ const TeacherLogin = () => {
     // ------------------------------------------------------------
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const setLocalStorage = () => {
+
+        auth.onAuthStateChanged(async (user) => {
+            console.log(user, "userrrrrrrrrlocal")
+            if (user) {
+                localStorage.setItem("token", user.accessToken)
+                localStorage.setItem("emailId", user.email)
+                localStorage.setItem("userName", user.displayName)
+                localStorage.setItem("userId", user.uid)
+            }
+            else {
+                console.log("LocalStorage No Data")
+            }
+        })
+
 
     }
 
-    const handleSendCode = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        if (mobileInput !== null) {
-            onCaptchaVerify()
-            console.log(window.recaptchaVerifier,"77777777777777777777")
-            const appVerifier = window.recaptchaVerifier
+        if (otpInput !== null) {
+            window.confirmationResult.confirm(otpInput).then((result) => {
+                // User signed in successfully.
+                const user = result.user;
+                console.log(user, "8888888")
+                setLocalStorage()
+                props.handleCallBack(true)
+                navigate("/dashboard")
+                toast.success("Signed in Successfully")
+                // ...
+            }).catch((error) => {
+                console.log(error.message)
+                if (error.message==="Firebase: Error (auth/invalid-verification-code).") {
+                    toast.error("Wrong OTP")
+                    setOtpInput(null)
+                }
+            });
+        } else {
+            toast.error("Please Enter OTP")
+        }
 
-            const formatMobileInput = "+" + mobileInput
-            signInWithPhoneNumber(auth, formatMobileInput, appVerifier)
-                .then((confirmationResult) => {
-                    // SMS sent. Prompt user to type the code from the message, then sign the
-                    // user in with confirmationResult.confirm(code).
-                    window.confirmationResult = confirmationResult;
-                    // ...
-                    setFormMargin("-50%")
-                    setTextMargin("-55%")
-                    setSliderTab("50%")
-                    setLableMobile(["#fff", "default", "none"])
-                    setLableVerifyOtp("#000")
-                    toast.success("OTP Sent Successfully")
-                }).catch((error) => {
-                    toast.error(error)
-                });
-        }
-        else {
-            toast.error("Please Enter Mobile Number")
-        }
     }
 
     const onCaptchaVerify = () => {
@@ -108,6 +117,51 @@ const TeacherLogin = () => {
         }
     }
 
+    const handleSendCode = (e) => {
+        e.preventDefault()
+        if (mobileInput !== null) {
+            setHideCaptcha("")
+            onCaptchaVerify()
+            const appVerifier = window.recaptchaVerifier
+
+            const formatMobileInput = "+" + mobileInput
+            signInWithPhoneNumber(auth, formatMobileInput, appVerifier)
+                .then((confirmationResult) => {
+                    // SMS sent. Prompt user to type the code from the message, then sign the
+                    // user in with confirmationResult.confirm(code).
+                    window.confirmationResult = confirmationResult;
+                    // ...
+                    console.log(confirmationResult)
+                    toast.success("OTP Sent Successfully")
+                    setFormMargin("-50%")
+                    setTextMargin("-55%")
+                    setSliderTab("50%")
+                    setLableMobile(["#fff", "default", "none"])
+                    setLableVerifyOtp("#000")
+                    setHideCaptcha("none")
+
+                }).catch((error) => {
+                    console.log(error.message)
+                    if (error.message === "Firebase: TOO_SHORT (auth/invalid-phone-number).") {
+                        toast.error("Invalid Phone Number")
+                        setHideCaptcha("none")
+                        setMobileInput("+" + 91)
+
+                        // navigate("/teacherlogin")
+                    } else if (error.message === "Firebase: Exceeded quota. (auth/quota-exceeded).") {
+                        toast.error("Site is Busy Please Try Later")
+                        setHideCaptcha("none")
+                        setMobileInput("+" + 91)
+
+                        // navigate("/teacherlogin")     
+                    }
+                });
+        }
+        else {
+            toast.error("Please Enter Mobile Number")
+        }
+    }
+
     return (
         <>
             <div className="mainn">
@@ -115,7 +169,6 @@ const TeacherLogin = () => {
                     position="top-center"
                     reverseOrder={false}
                 />
-                <div id="recaptcha-container" ></div>
 
                 <div className="wrapperr" data-aos="zoom-in" data-aos-delay="100">
                     <div className="title-text">
@@ -168,7 +221,9 @@ const TeacherLogin = () => {
                         </div>
                     </div>
                 </div>
+                <div id="recaptcha-container" style={{ display: hideCaptcha }} ></div>
             </div >
+
         </>
     )
 }
