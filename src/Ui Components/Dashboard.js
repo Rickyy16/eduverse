@@ -9,17 +9,29 @@ import $ from 'jquery';
 import "../Css/Dashboard.css"
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import bg from "../images/bg2.jpg"
+import Loader from './Loader';
 
 
 const Dashboard = (props) => {
 
+    const [loading, setLoading] = useState(false)
+
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 3000)
+    }, []);
 
     const removeLocalStorage = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("emailId")
         localStorage.removeItem("userName")
         localStorage.removeItem("userId")
+        localStorage.removeItem("database")
+        // localStorage.removeItem("_grecaptcha")
     }
 
     const handleLogOut = () => {
@@ -29,7 +41,7 @@ const Dashboard = (props) => {
             removeLocalStorage()
             props.handleCallBack(false)
             navigate("/dashboard")
-            toast.success("Sign Out Succesfully")
+            toast.success("Log Out Succesfully")
         }).catch((error) => {
             // An error happened.
             toast.error(error.message)
@@ -87,7 +99,10 @@ const Dashboard = (props) => {
 
     return (
         <>
-
+            {loading ? <Loader /> : 
+            
+            <>
+            
             {/* ------ Navbar ------ */}
             <Navbar handleLogOut={handleLogOut} />
             {/* ------ Navbar End ------ */}
@@ -745,6 +760,12 @@ const Dashboard = (props) => {
                     </div>
                 </div>
             </footer>
+
+
+            </>
+
+            }
+
 
 
 

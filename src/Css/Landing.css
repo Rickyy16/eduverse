@@ -21,8 +21,8 @@ html {
     width: 100vw;
     height: 100vh;
     color: #000;
-    background: url("/src/Img/landingbg.jpg");
-    background-size: 2100px 1200px;
+    background: url("/src/Img/landingbg3.jpg");
+    background-size: 2100px 1400px;
     background-repeat: no-repeat;
 }
 
@@ -46,10 +46,10 @@ html {
 }
 
 .mainDiv .text {
-    border: 2px solid #323334;
-    border-radius: 5px;
+    border: 2px solid #1f122e;
+    border-radius: 8px;
     margin-top: 15px;
-    background-color: #2673fa;
+    background: -webkit-linear-gradient(left, #a120f0, #4242fa);
 }
 
 .mainDiv h3 {
@@ -71,15 +71,15 @@ html {
 }
 
 .mainDiv .items:hover .text {
-    border: 2px solid #323334;
-    border-radius: 5px;
+    border: 2px solid #320b44;
+    border-radius: 8px;
     margin-top: 15px;
-    background-color: #fff;
+    background: #ffffff;
     transition-duration: 0.7s;
 }
 
 .mainDiv .items:hover h3 {
-    color: #202021;
+    color: #240b30;
     transition-duration: 0.7s;
 }
 

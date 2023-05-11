@@ -99,10 +99,11 @@ const StudentLogin = (props) => {
         auth.onAuthStateChanged(async (user) => {
             console.log(user, "userrrrrrrrrlocal")
             if (user) {
-                localStorage.setItem("token", user.accessToken)
-                localStorage.setItem("emailId", user.email)
-                localStorage.setItem("userName", user.displayName)
-                localStorage.setItem("userId", user.uid)
+                localStorage.setItem("token", user?.accessToken)
+                localStorage.setItem("emailId", user?.email)
+                localStorage.setItem("userName", user?.displayName)
+                localStorage.setItem("userId", user?.uid)
+                localStorage.setItem("database", user?.auth.app._options.databaseURL)
             }
             else {
                 console.log("LocalStorage No Data")
@@ -130,8 +131,7 @@ const StudentLogin = (props) => {
                     })
                     .catch((error) => {
                         console.log(error.code)
-                        console.log(error.message)
-                        alert(error.message)
+                        toast.error(error.message)
                         // ..
                     });
             }
@@ -155,12 +155,14 @@ const StudentLogin = (props) => {
                     setLocalStorage()
                     props.handleCallBack(true)
                     navigate("/dashboard")
-                    toast.success("Signed in Successfully")
+                    toast.success("Log in Successfully")
 
                     // ...
                 })
                 .catch((error) => {
-                    toast.error(error.message)
+                    if(error.message==="Firebase: Error (auth/wrong-password)."){
+                        toast.error("Wrong Password or Email")
+                    }
                 });
 
         }

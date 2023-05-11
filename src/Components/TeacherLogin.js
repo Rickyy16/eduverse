@@ -20,6 +20,9 @@ const TeacherLogin = (props) => {
     const [lablemobile, setLableMobile] = useState([])
     const [lableVerifyOtp, setLableVerifyOtp] = useState("")
     const [hideCaptcha, setHideCaptcha] = useState("")
+    const [person, setPerson] = useState(false)
+
+    const [teacher, setTeacher] = useState({ fname: "", lname: "" })
 
     const navigate = useNavigate()
 
@@ -64,10 +67,11 @@ const TeacherLogin = (props) => {
         auth.onAuthStateChanged(async (user) => {
             console.log(user, "userrrrrrrrrlocal")
             if (user) {
-                localStorage.setItem("token", user.accessToken)
-                localStorage.setItem("emailId", user.email)
-                localStorage.setItem("userName", user.displayName)
-                localStorage.setItem("userId", user.uid)
+                localStorage.setItem("token", user?.accessToken)
+                localStorage.setItem("emailId", user?.email)
+                localStorage.setItem("userName", user?.displayName)
+                localStorage.setItem("userId", user?.uid)
+                localStorage.setItem("database", user?.auth.app._options.databaseURL)
             }
             else {
                 console.log("LocalStorage No Data")
@@ -84,14 +88,15 @@ const TeacherLogin = (props) => {
                 // User signed in successfully.
                 const user = result.user;
                 console.log(user, "8888888")
-                setLocalStorage()
-                props.handleCallBack(true)
-                navigate("/dashboard")
-                toast.success("Signed in Successfully")
+                // setLocalStorage()
+                // props.handleCallBack(true)
+                // navigate("/dashboard")
+                toast.success("Account Created Successfully")
+                setPerson(true)
                 // ...
             }).catch((error) => {
                 console.log(error.message)
-                if (error.message==="Firebase: Error (auth/invalid-verification-code).") {
+                if (error.message === "Firebase: Error (auth/invalid-verification-code).") {
                     toast.error("Wrong OTP")
                     setOtpInput(null)
                 }
@@ -123,6 +128,7 @@ const TeacherLogin = (props) => {
             setHideCaptcha("")
             onCaptchaVerify()
             const appVerifier = window.recaptchaVerifier
+            console.log(appVerifier)
 
             const formatMobileInput = "+" + mobileInput
             signInWithPhoneNumber(auth, formatMobileInput, appVerifier)
@@ -130,8 +136,7 @@ const TeacherLogin = (props) => {
                     // SMS sent. Prompt user to type the code from the message, then sign the
                     // user in with confirmationResult.confirm(code).
                     window.confirmationResult = confirmationResult;
-                    // ...
-                    console.log(confirmationResult)
+                    //..
                     toast.success("OTP Sent Successfully")
                     setFormMargin("-50%")
                     setTextMargin("-55%")
@@ -141,7 +146,7 @@ const TeacherLogin = (props) => {
                     setHideCaptcha("none")
 
                 }).catch((error) => {
-                    console.log(error.message)
+                    console.log(error)
                     if (error.message === "Firebase: TOO_SHORT (auth/invalid-phone-number).") {
                         toast.error("Invalid Phone Number")
                         setHideCaptcha("none")
@@ -155,11 +160,38 @@ const TeacherLogin = (props) => {
 
                         // navigate("/teacherlogin")     
                     }
+                    else if (error.message === "reCAPTCHA client element has been removed: 0") {
+                        window.location.reload()
+                        toast(
+                            "Please Enter Mobile Number Again",
+                            {
+                                duration: 3000,
+                            }
+                        );
+                    }
                 });
         }
         else {
             toast.error("Please Enter Mobile Number")
         }
+    }
+
+    const handleLogin = (e) => {
+        const iname = e.target.name;
+        const ivalue = e.target.value;
+
+        return setTeacher((preval) => {
+            return {
+                ...preval,
+                [iname]: ivalue
+            }
+        }),
+        setLocalStorage(),
+        props.handleCallBack(true),
+        navigate("/dashboard"),
+        toast.success("Log in Successfully"),
+        setPerson(false)
+
     }
 
     return (
@@ -170,58 +202,88 @@ const TeacherLogin = (props) => {
                     reverseOrder={false}
                 />
 
-                <div className="wrapperr" data-aos="zoom-in" data-aos-delay="100">
-                    <div className="title-text">
-                        <div className="title mobile" style={{ marginLeft: textMargin }}>
-                            <div className='mobile-icon'><BsTelephoneFill size={35} /></div>
+                {person ?
+                    <>
+                        <div className="wrapperr" data-aos="zoom-in" data-aos-delay="100">
+                            <div className="title-text">
+                                <div className="title">
+                                    <div className=''>Personal Details</div>
+                                </div>
+                            </div>
+                            <div className="form-inner">
+                                <form action="" className="personal">
+                                    <div className="field">
+                                        <input type="text" placeholder="First Name" name="fname" id="fname" value={teacher.fname} required />
+                                    </div>
+                                    <div className="field">
+                                        <input type="text" placeholder="Last Name" name="lname" id="lname" value={teacher.lname} required />
+                                    </div>
+                                    <div className="field btn">
+                                        <div className="btn-layer"></div>
+                                        <button type="submit" id="submit-Btn" onClick={handleLogin} >Submit</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div className="title verify-otp">
-                            <div className='verify-icon'><BsFillShieldLockFill size={35} /></div>
+                    </> :
+
+                    <>
+                        <div className="wrapperr" data-aos="zoom-in" data-aos-delay="100">
+                            <div className="title-text">
+                                <div className="title mobile" style={{ marginLeft: textMargin }}>
+                                    <div className='mobile-icon'><BsTelephoneFill size={35} /></div>
+                                </div>
+                                <div className="title verify-otp">
+                                    <div className='verify-icon'><BsFillShieldLockFill size={35} /></div>
+                                </div>
+                            </div>
+                            <div className="form-container">
+                                <div className="slide-controls">
+                                    <input type="radio" name="slide" id="mobile" />
+                                    <input type="radio" name="slide" id="verify-otp" />
+                                    <label for="mobile" className="slide mobile" style={{ color: lableVerifyOtp }} onClick={mobileClick}>Mobile</label>
+                                    <label for="verify-otp" className="slide verify-otp" style={{
+                                        color:
+                                            lablemobile[0],
+                                        cursor: lablemobile[1],
+                                        userSelect: lablemobile[2]
+                                    }} onClick={otpClick}>Verify OTP</label>
+                                    <div className="slider-tabb" style={{ left: sliderTab }}></div>
+                                </div>
+                                <div className="form-inner">
+                                    <form action="" className="mobile" style={{ marginLeft: formMargin }}>
+                                        <div className="fieldd fielddp">
+                                            <PhoneInput country={"in"}
+                                                onChange={setMobileInput} value={mobileInput}
+                                                required />
+                                        </div>
+                                        <div className="fieldd btn">
+                                            <div className="btn-layerr"></div>
+                                            <button type="submit" onClick={handleSendCode}>Send Verification Code</button>
+                                        </div>
+                                        <div className="student-link">
+                                            Login as Student ? <Link to="/studentlogin" >Click here</Link>
+                                        </div>
+                                    </form>
+                                    <form action="" className="verify-otp">
+                                        <div className="fieldd" id="otpinput">
+                                            <OtpInput OTPLength={6} otpType="number"
+                                                disabled={false}
+                                                autoFocus onChange={setOtpInput} value={otpInput} required ></OtpInput>
+                                        </div>
+                                        <div className="fieldd btn">
+                                            <div className="btn-layerr"></div>
+                                            <button type="submit" onClick={handleSubmit} > Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-container">
-                        <div className="slide-controls">
-                            <input type="radio" name="slide" id="mobile" />
-                            <input type="radio" name="slide" id="verify-otp" />
-                            <label for="mobile" className="slide mobile" style={{ color: lableVerifyOtp }} onClick={mobileClick}>Mobile</label>
-                            <label for="verify-otp" className="slide verify-otp" style={{
-                                color:
-                                    lablemobile[0],
-                                cursor: lablemobile[1],
-                                userSelect: lablemobile[2]
-                            }} onClick={otpClick}>Verify OTP</label>
-                            <div className="slider-tabb" style={{ left: sliderTab }}></div>
-                        </div>
-                        <div className="form-inner">
-                            <form action="" className="mobile" style={{ marginLeft: formMargin }}>
-                                <div className="fieldd fielddp">
-                                    <PhoneInput country={"in"}
-                                        onChange={setMobileInput} value={mobileInput}
-                                        required />
-                                </div>
-                                <div className="fieldd btn">
-                                    <div className="btn-layerr"></div>
-                                    <button type="submit" onClick={handleSendCode}>Send Verification Code</button>
-                                </div>
-                                <div className="student-link">
-                                    Login as Student ? <Link to="/studentlogin" >Click here</Link>
-                                </div>
-                            </form>
-                            <form action="" className="verify-otp">
-                                <div className="fieldd" id="otpinput">
-                                    <OtpInput OTPLength={6} otpType="number"
-                                        disabled={false}
-                                        autoFocus onChange={setOtpInput} value={otpInput} required ></OtpInput>
-                                </div>
-                                <div className="fieldd btn">
-                                    <div className="btn-layerr"></div>
-                                    <button type="submit" onClick={handleSubmit} > Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div id="recaptcha-container" style={{ display: hideCaptcha }} ></div>
+                        <div id="recaptcha-container" style={{ display: hideCaptcha }} ></div>
+                    </>
+
+                }
+
             </div >
 
         </>

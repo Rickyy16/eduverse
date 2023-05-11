@@ -15,12 +15,15 @@ const Routing = () => {
     const [userId, setUserId] = useState("")
     const [email, setEmail] = useState("")
     const [log, setLog] = useState(false)
+    const [database, setDatabase] = useState("")
 
     useEffect(() => {
         setUserName(localStorage.getItem("userName"))
         setToken(localStorage.getItem("token"))
         setUserId(localStorage.getItem("userId"))
         setEmail(localStorage.getItem("email"))
+        setDatabase(localStorage.getItem("database"))
+
     },[log])
 
     const callBack = (childData) => {
@@ -30,10 +33,10 @@ const Routing = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={!userId ? <Landing /> : <Navigate to="/dashboard" />} />
-                <Route path="/studentlogin" element={!userId ? <StudentLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
-                <Route path="/teacherlogin" element={!userId ? <TeacherLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
-                <Route path="/dashboard" element={userId ? <Dashboard name={userName} handleCallBack={callBack} /> : <Navigate to="/" />} />
+                <Route path="/" element={!userId || !database ? <Landing /> : <Navigate to="/dashboard" />} />
+                <Route path="/studentlogin" element={!userId || !database ? <StudentLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
+                <Route path="/teacherlogin" element={!userId || !database ? <TeacherLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
+                <Route path="/dashboard" element={userId &&  database==="https://major-project-clg-81254-default-rtdb.firebaseio.com" ? <Dashboard name={userName} handleCallBack={callBack} /> : <Navigate to="/" />} />
             </Routes>
         </BrowserRouter>
     )
