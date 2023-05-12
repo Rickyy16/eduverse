@@ -1,5 +1,4 @@
 import React from 'react'
-import { ClimbingBoxLoader } from "react-spinners"
 import { RotateLoader } from "react-spinners"
 import "../Css/Loader.css"
 

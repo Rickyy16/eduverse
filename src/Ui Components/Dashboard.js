@@ -22,7 +22,7 @@ const Dashboard = (props) => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-        }, 3000)
+        }, 2000)
     }, []);
 
     const removeLocalStorage = () => {
@@ -39,9 +39,9 @@ const Dashboard = (props) => {
         signOut(auth).then(() => {
             console.log("Sign Out Succesfully")
             removeLocalStorage()
+            toast.success("Log Out Succesfully")
             props.handleCallBack(false)
             navigate("/dashboard")
-            toast.success("Log Out Succesfully")
         }).catch((error) => {
             // An error happened.
             toast.error(error.message)
@@ -109,7 +109,7 @@ const Dashboard = (props) => {
 
             {/* ---Hero---- */}
 
-            <div className="hero-wrap js-fullheight d-flex align-items-center" style={{ backgroundImage: `url(${bg})` }}>
+            <div className="hero-wrap js-fullheight d-flex align-items-center" style={{ background: "#000000" }}>
                 <div className="overlay" />
                 <div className="container">
                     <div className="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">

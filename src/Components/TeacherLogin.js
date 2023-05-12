@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../Css/TeacherLogin.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../Firebase/Firebase';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { RecaptchaVerifier, signInWithPhoneNumber, updateProfile } from 'firebase/auth';
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { BsTelephoneFill } from "react-icons/bs";
 import OtpInput from "otp-input-react";
@@ -88,11 +88,17 @@ const TeacherLogin = (props) => {
                 // User signed in successfully.
                 const user = result.user;
                 console.log(user, "8888888")
-                // setLocalStorage()
-                // props.handleCallBack(true)
-                // navigate("/dashboard")
-                toast.success("Account Created Successfully")
-                setPerson(true)
+                if (user.displayName) {
+                    setLocalStorage()
+                    toast.success("Log in Successfully")
+                    props.handleCallBack(true)
+                    navigate("/dashboard")
+                } else {
+                    toast.success("Account Created Successfully")
+                    setPerson(true)
+                }
+
+                
                 // ...
             }).catch((error) => {
                 console.log(error.message)
@@ -176,7 +182,17 @@ const TeacherLogin = (props) => {
         }
     }
 
-    const handleLogin = (e) => {
+    const updateDisplayName = () => {
+        updateProfile(auth.currentUser, {
+            displayName: teacher.fname
+        }).then(() => {
+            console.log("Display Name Updated")
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
+
+    const handleTChange = (e) => {
         const iname = e.target.name;
         const ivalue = e.target.value;
 
@@ -185,13 +201,26 @@ const TeacherLogin = (props) => {
                 ...preval,
                 [iname]: ivalue
             }
-        }),
-        setLocalStorage(),
-        props.handleCallBack(true),
-        navigate("/dashboard"),
-        toast.success("Log in Successfully"),
-        setPerson(false)
+        })
+    }
 
+    const handleLogin = () => {
+
+        if (teacher.fname&&teacher.lname) {
+            updateDisplayName()
+        setLocalStorage()
+        toast.success("Log in Successfully")
+        props.handleCallBack(true)
+        navigate("/dashboard")
+        setPerson(false)
+        } else if (teacher.fname&&!teacher.lname){
+            toast.error("Enter Last Name")
+        }else if (!teacher.fname&&teacher.lname){
+            toast.error("Enter First Name")
+        }else {
+            toast.error("Please Fill All The Fields")
+        }
+        
     }
 
     return (
@@ -204,19 +233,19 @@ const TeacherLogin = (props) => {
 
                 {person ?
                     <>
-                        <div className="wrapperr" data-aos="zoom-in" data-aos-delay="100">
+                        <div className="wrapperr pt-4 pb-5" data-aos="fade-left">
                             <div className="title-text">
                                 <div className="title">
                                     <div className=''>Personal Details</div>
                                 </div>
                             </div>
-                            <div className="form-inner">
+                            <div className="form-inner pt-3">
                                 <form action="" className="personal">
                                     <div className="field">
-                                        <input type="text" placeholder="First Name" name="fname" id="fname" value={teacher.fname} required />
+                                        <input type="text" placeholder="First Name" name="fname" id="fname" value={teacher.fname} onChange={handleTChange} required />
                                     </div>
                                     <div className="field">
-                                        <input type="text" placeholder="Last Name" name="lname" id="lname" value={teacher.lname} required />
+                                        <input type="text" placeholder="Last Name" name="lname" id="lname" value={teacher.lname} onChange={handleTChange} required />
                                     </div>
                                     <div className="field btn">
                                         <div className="btn-layer"></div>

@@ -153,9 +153,9 @@ const StudentLogin = (props) => {
                     // Signed in 
                     console.log(result)
                     setLocalStorage()
+                    toast.success("Log in Successfully")
                     props.handleCallBack(true)
                     navigate("/dashboard")
-                    toast.success("Log in Successfully")
 
                     // ...
                 })
