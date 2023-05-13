@@ -76,7 +76,7 @@ const Navbar = ({ handleLogOut }) => {
 
             <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div className="container">
-                    <Link  to="/dashboard"><img className='p-2' src={logo} height={65} alt="Logo" /></Link>
+                    <Link className="navbar-brand" to="/dashboard"><img className='p-2' src={logo} height={65} alt="Logo" /></Link>
                     <button class="navbar-toggler" type="button" onClick={() => { setToggle(!toggle) }}>
                         <span class="oi oi-menu"></span> Menu
                     </button>
