@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import "../../node_modules/bootstrap/dist/js/bootstrap.bundle"
 import Landing from '../Components/Landing';
 import StudentLogin from '../Components/StudentLogin';
 import TeacherLogin from '../Components/TeacherLogin';
 import Dashboard from '../Ui Components/Dashboard';
-import { auth } from '../Firebase/Firebase';
 
 const Routing = () => {
 
@@ -24,7 +23,7 @@ const Routing = () => {
         setEmail(localStorage.getItem("email"))
         setDatabase(localStorage.getItem("database"))
 
-    },[log])
+    }, [log])
 
     const callBack = (childData) => {
         return setLog(childData)
@@ -36,7 +35,7 @@ const Routing = () => {
                 <Route path="/" element={!userId || !database ? <Landing /> : <Navigate to="/dashboard" />} />
                 <Route path="/studentlogin" element={!userId || !database ? <StudentLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
                 <Route path="/teacherlogin" element={!userId || !database ? <TeacherLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
-                <Route path="/dashboard" element={userId &&  database==="https://major-project-clg-81254-default-rtdb.firebaseio.com" ? <Dashboard name={userName} handleCallBack={callBack} /> : <Navigate to="/" />} />
+                <Route path="/dashboard" element={userId && database === "https://major-project-clg-81254-default-rtdb.firebaseio.com" ? <Dashboard name={userName} handleCallBack={callBack} /> : <Navigate to="/" />} />
             </Routes>
         </BrowserRouter>
     )

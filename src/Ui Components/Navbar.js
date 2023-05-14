@@ -20,7 +20,7 @@ import { blue } from '@mui/material/colors'
 import profilePic from "../Img/profile.jpg"
 import logo from "../Img/logo-no-background.png"
 
-const Navbar = ({ handleLogOut }) => {
+const Navbar = ({ handleLogOut,newCallBack }) => {
 
     const [toggle, setToggle] = useState(false)
 
@@ -82,11 +82,12 @@ const Navbar = ({ handleLogOut }) => {
                     </button>
                     <div class="collapse navbar-collapse" id="col-nav">
                         <ul className="navbar-nav ml-auto">
-                            <li className="nav-item active"><Link to="/home" className="nav-link">Home</Link></li>
-                            <li className="nav-item"><Link to="/" className="nav-link">Que & Ans</Link></li>
-                            <li className="nav-item"><Link to="/" className="nav-link">Notes</Link></li>
-                            <li className="nav-item"><Link to="/" className="nav-link">Test Papers</Link></li>
-                            <li className="nav-item"><Link to="/" className="nav-link">Contact</Link></li>
+                            {/* <li className="nav-item active"><Link  className="nav-link" onClick={()=>{newCallBack("")}}>Home</Link></li> */}
+                            <li className="nav-item"><Link  className="nav-link" onClick={()=>{newCallBack("")}}>Home</Link></li>
+                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("queans")}}>Que & Ans</Link></li>
+                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("notes")}}>Notes</Link></li>
+                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("testpapers")}}>Test Papers</Link></li>
+                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("feedback")}}>Feedback</Link></li>
                         </ul>
                         <div id='profile'>
                             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -143,7 +144,7 @@ const Navbar = ({ handleLogOut }) => {
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
                                 <MenuItem onClick={handleClose}>
-                                <Avatar sx={{ bgcolor: blue[500] }}>{userName.slice(0,1)}</Avatar> Profile
+                                <Avatar sx={{ bgcolor: blue[500] }}>{userName? userName.slice(0,1):"M"}</Avatar> Profile
                                 </MenuItem>
                                 <MenuItem onClick={handleClose}>
                                     <Avatar src={profilePic} /> My account
