@@ -20,9 +20,6 @@ const TeacherLogin = (props) => {
     const [lablemobile, setLableMobile] = useState([])
     const [lableVerifyOtp, setLableVerifyOtp] = useState("")
     const [hideCaptcha, setHideCaptcha] = useState("")
-    const [person, setPerson] = useState(false)
-
-    const [teacher, setTeacher] = useState({ fname: "", lname: "" })
 
     const navigate = useNavigate()
 
@@ -32,6 +29,78 @@ const TeacherLogin = (props) => {
     const [otpInput, setOtpInput] = useState(null)
 
     //--------------------------
+    const faculty = [
+        {
+            id: "0",
+            facultyName: "Testing",
+            facultyNumber: "919876543210"
+        },
+        {
+            id: "1",
+            facultyName: "Giriraj Vyas",
+            facultyNumber: "9694286123"
+        },
+        {
+            id: "2",
+            facultyName: "KK Agarwal",
+            facultyNumber: "9460132812"
+        },
+        {
+            id: "3",
+            facultyName: "Shailendra Shukla",
+            facultyNumber: "9414848542"
+        },
+        {
+            id: "4",
+            facultyName: "Sunita Meena",
+            facultyNumber: "9530290009"
+        },
+        {
+            id: "5",
+            facultyName: "Vijay Kumar Meena",
+            facultyNumber: "9414000857"
+        },
+        {
+            id: "6",
+            facultyName: "Yogesh Kumar",
+            facultyNumber: "9414791960"
+        },
+        {
+            id: "7",
+            facultyName: "Jyoti Mathur",
+            facultyNumber: "9887670832"
+        },
+        {
+            id: "8",
+            facultyName: "Sushil Sharma",
+            facultyNumber: "9460265510"
+        },
+        {
+            id: "9",
+            facultyName: "Pratishtha Sharma",
+            facultyNumber: "8764093557"
+        },
+        {
+            id: "10",
+            facultyName: "Ankit Bhadu",
+            facultyNumber: "9414512510"
+        },
+        {
+            id: "11",
+            facultyName: "Sunil Sharma",
+            facultyNumber: "7014663522"
+        }
+    ]
+
+    const tNumber = []
+
+    useEffect(()=>{
+        faculty.map((ele)=>{
+            tNumber.push(ele.facultyNumber)
+        })
+    })
+        
+
 
     const otpClick = (e) => {
         if (!window.recaptchaVerifier) {
@@ -88,17 +157,12 @@ const TeacherLogin = (props) => {
                 // User signed in successfully.
                 const user = result.user;
                 console.log(user, "8888888")
-                if (user.displayName) {
-                    setLocalStorage()
-                    toast.success("Log in Successfully")
-                    props.handleCallBack(true)
-                    navigate("/dashboard")
-                } else {
-                    toast.success("Account Created Successfully")
-                    setPerson(true)
-                }
+                setLocalStorage()
+                toast.success("Log in Successfully")
+                updateDisplayName()
+                props.handleCallBack(true)
+                navigate("/dashboard")
 
-                
                 // ...
             }).catch((error) => {
                 console.log(error.message)
@@ -131,51 +195,58 @@ const TeacherLogin = (props) => {
     const handleSendCode = (e) => {
         e.preventDefault()
         if (mobileInput !== null) {
-            setHideCaptcha("")
-            onCaptchaVerify()
-            const appVerifier = window.recaptchaVerifier
-            console.log(appVerifier)
 
-            const formatMobileInput = "+" + mobileInput
-            signInWithPhoneNumber(auth, formatMobileInput, appVerifier)
-                .then((confirmationResult) => {
-                    // SMS sent. Prompt user to type the code from the message, then sign the
-                    // user in with confirmationResult.confirm(code).
-                    window.confirmationResult = confirmationResult;
-                    //..
-                    toast.success("OTP Sent Successfully")
-                    setFormMargin("-50%")
-                    setTextMargin("-55%")
-                    setSliderTab("50%")
-                    setLableMobile(["#fff", "default", "none"])
-                    setLableVerifyOtp("#000")
-                    setHideCaptcha("none")
+            if (tNumber.includes(mobileInput)) {
+                setHideCaptcha("")
+                onCaptchaVerify()
+                const appVerifier = window.recaptchaVerifier
+                console.log(appVerifier)
 
-                }).catch((error) => {
-                    console.log(error)
-                    if (error.message === "Firebase: TOO_SHORT (auth/invalid-phone-number).") {
-                        toast.error("Invalid Phone Number")
+                const formatMobileInput = "+" + mobileInput
+                signInWithPhoneNumber(auth, formatMobileInput, appVerifier)
+                    .then((confirmationResult) => {
+                        // SMS sent. Prompt user to type the code from the message, then sign the
+                        // user in with confirmationResult.confirm(code).
+                        window.confirmationResult = confirmationResult;
+                        //..
+                        toast.success("OTP Sent Successfully")
+                        setFormMargin("-50%")
+                        setTextMargin("-55%")
+                        setSliderTab("50%")
+                        setLableMobile(["#fff", "default", "none"])
+                        setLableVerifyOtp("#000")
                         setHideCaptcha("none")
-                        setMobileInput("+" + 91)
 
-                        // navigate("/teacherlogin")
-                    } else if (error.message === "Firebase: Exceeded quota. (auth/quota-exceeded).") {
-                        toast.error("Site is Busy Please Try Later")
-                        setHideCaptcha("none")
-                        setMobileInput("+" + 91)
+                    }).catch((error) => {
+                        console.log(error)
+                        if (error.message === "Firebase: TOO_SHORT (auth/invalid-phone-number).") {
+                            toast.error("Invalid Phone Number")
+                            setHideCaptcha("none")
+                            setMobileInput("+" + 91)
 
-                        // navigate("/teacherlogin")     
-                    }
-                    else if (error.message === "reCAPTCHA client element has been removed: 0") {
-                        window.location.reload()
-                        toast(
-                            "Please Enter Mobile Number Again",
-                            {
-                                duration: 3000,
-                            }
-                        );
-                    }
-                });
+                            // navigate("/teacherlogin")
+                        } else if (error.message === "Firebase: Exceeded quota. (auth/quota-exceeded).") {
+                            toast.error("Site is Busy Please Try Later")
+                            setHideCaptcha("none")
+                            setMobileInput("+" + 91)
+
+                            // navigate("/teacherlogin")     
+                        }
+                        else if (error.message === "reCAPTCHA client element has been removed: 0") {
+                            window.location.reload()
+                            toast(
+                                "Please Enter Mobile Number Again",
+                                {
+                                    duration: 3000,
+                                }
+                            );
+                        }
+                    });
+            }
+            else {
+                toast.error("Sorry You Are Not A Faculty Member")
+            }
+
         }
         else {
             toast.error("Please Enter Mobile Number")
@@ -183,45 +254,15 @@ const TeacherLogin = (props) => {
     }
 
     const updateDisplayName = () => {
-        updateProfile(auth.currentUser, {
-            displayName: teacher.fname
-        }).then(() => {
-            console.log("Display Name Updated")
-        }).catch((error) => {
-            console.log(error)
-        });
+        // updateProfile(auth.currentUser, {
+        //     displayName: teacher.fname
+        // }).then(() => {
+        //     console.log("Display Name Updated")
+        // }).catch((error) => {
+        //     console.log(error)
+        // });
     }
 
-    const handleTChange = (e) => {
-        const iname = e.target.name;
-        const ivalue = e.target.value;
-
-        return setTeacher((preval) => {
-            return {
-                ...preval,
-                [iname]: ivalue
-            }
-        })
-    }
-
-    const handleLogin = () => {
-
-        if (teacher.fname&&teacher.lname) {
-            updateDisplayName()
-        setLocalStorage()
-        toast.success("Log in Successfully")
-        props.handleCallBack(true)
-        navigate("/dashboard")
-        setPerson(false)
-        } else if (teacher.fname&&!teacher.lname){
-            toast.error("Enter Last Name")
-        }else if (!teacher.fname&&teacher.lname){
-            toast.error("Enter First Name")
-        }else {
-            toast.error("Please Fill All The Fields")
-        }
-        
-    }
 
     return (
         <>
@@ -231,87 +272,58 @@ const TeacherLogin = (props) => {
                     reverseOrder={false}
                 />
 
-                {person ?
-                    <>
-                        <div className="wrapperr pt-4 pb-5" data-aos="fade-left">
-                            <div className="title-text">
-                                <div className="title">
-                                    <div className=''>Personal Details</div>
-                                </div>
-                            </div>
-                            <div className="form-inner pt-3">
-                                <form action="" className="personal">
-                                    <div className="field">
-                                        <input type="text" placeholder="First Name" name="fname" id="fname" value={teacher.fname} onChange={handleTChange} required />
-                                    </div>
-                                    <div className="field">
-                                        <input type="text" placeholder="Last Name" name="lname" id="lname" value={teacher.lname} onChange={handleTChange} required />
-                                    </div>
-                                    <div className="field btn">
-                                        <div className="btn-layer"></div>
-                                        <button type="submit" id="submit-Btn" onClick={handleLogin} >Submit</button>
-                                    </div>
-                                </form>
-                            </div>
+                <div className="wrapperr" data-aos="zoom-in" data-aos-delay="100">
+                    <div className="title-text">
+                        <div className="title mobile" style={{ marginLeft: textMargin }}>
+                            <div className='mobile-icon'><BsTelephoneFill size={35} /></div>
                         </div>
-                    </> :
-
-                    <>
-                        <div className="wrapperr" data-aos="zoom-in" data-aos-delay="100">
-                            <div className="title-text">
-                                <div className="title mobile" style={{ marginLeft: textMargin }}>
-                                    <div className='mobile-icon'><BsTelephoneFill size={35} /></div>
-                                </div>
-                                <div className="title verify-otp">
-                                    <div className='verify-icon'><BsFillShieldLockFill size={35} /></div>
-                                </div>
-                            </div>
-                            <div className="form-container">
-                                <div className="slide-controls">
-                                    <input type="radio" name="slide" id="mobile" />
-                                    <input type="radio" name="slide" id="verify-otp" />
-                                    <label for="mobile" className="slide mobile" style={{ color: lableVerifyOtp }} onClick={mobileClick}>Mobile</label>
-                                    <label for="verify-otp" className="slide verify-otp" style={{
-                                        color:
-                                            lablemobile[0],
-                                        cursor: lablemobile[1],
-                                        userSelect: lablemobile[2]
-                                    }} onClick={otpClick}>Verify OTP</label>
-                                    <div className="slider-tabb" style={{ left: sliderTab }}></div>
-                                </div>
-                                <div className="form-inner">
-                                    <form action="" className="mobile" style={{ marginLeft: formMargin }}>
-                                        <div className="fieldd fielddp">
-                                            <PhoneInput country={"in"}
-                                                onChange={setMobileInput} value={mobileInput}
-                                                required />
-                                        </div>
-                                        <div className="fieldd btn">
-                                            <div className="btn-layerr"></div>
-                                            <button type="submit" onClick={handleSendCode}>Send Verification Code</button>
-                                        </div>
-                                        <div className="student-link">
-                                            Login as Student ? <Link to="/studentlogin" >Click here</Link>
-                                        </div>
-                                    </form>
-                                    <form action="" className="verify-otp">
-                                        <div className="fieldd" id="otpinput">
-                                            <OtpInput OTPLength={6} otpType="number"
-                                                disabled={false}
-                                                autoFocus onChange={setOtpInput} value={otpInput} required ></OtpInput>
-                                        </div>
-                                        <div className="fieldd btn">
-                                            <div className="btn-layerr"></div>
-                                            <button type="submit" onClick={handleSubmit} > Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                        <div className="title verify-otp">
+                            <div className='verify-icon'><BsFillShieldLockFill size={35} /></div>
                         </div>
-                        <div id="recaptcha-container" style={{ display: hideCaptcha }} ></div>
-                    </>
-
-                }
+                    </div>
+                    <div className="form-container">
+                        <div className="slide-controls">
+                            <input type="radio" name="slide" id="mobile" />
+                            <input type="radio" name="slide" id="verify-otp" />
+                            <label for="mobile" className="slide mobile" style={{ color: lableVerifyOtp }} onClick={mobileClick}>Mobile</label>
+                            <label for="verify-otp" className="slide verify-otp" style={{
+                                color:
+                                    lablemobile[0],
+                                cursor: lablemobile[1],
+                                userSelect: lablemobile[2]
+                            }} onClick={otpClick}>Verify OTP</label>
+                            <div className="slider-tabb" style={{ left: sliderTab }}></div>
+                        </div>
+                        <div className="form-inner">
+                            <form action="" className="mobile" style={{ marginLeft: formMargin }}>
+                                <div className="fieldd fielddp">
+                                    <PhoneInput country={"in"}
+                                        onChange={setMobileInput} value={mobileInput}
+                                        required />
+                                </div>
+                                <div className="fieldd btn">
+                                    <div className="btn-layerr"></div>
+                                    <button type="submit" onClick={handleSendCode}>Send Verification Code</button>
+                                </div>
+                                <div className="student-link">
+                                    Login as Student ? <Link to="/studentlogin" >Click here</Link>
+                                </div>
+                            </form>
+                            <form action="" className="verify-otp">
+                                <div className="fieldd" id="otpinput">
+                                    <OtpInput OTPLength={6} otpType="number"
+                                        disabled={false}
+                                        autoFocus onChange={setOtpInput} value={otpInput} required ></OtpInput>
+                                </div>
+                                <div className="fieldd btn">
+                                    <div className="btn-layerr"></div>
+                                    <button type="submit" onClick={handleSubmit} > Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="recaptcha-container" style={{ display: hideCaptcha }} ></div>
 
             </div >
 
