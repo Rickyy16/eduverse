@@ -20,6 +20,7 @@ import { blue } from '@mui/material/colors'
 import profilePic from "../Img/profile.jpg"
 import logo from "../Img/logo-no-background.png"
 
+
 const Navbar = ({ handleLogOut,newCallBack }) => {
 
     const [toggle, setToggle] = useState(false)
@@ -70,6 +71,7 @@ const Navbar = ({ handleLogOut,newCallBack }) => {
     };
     
     const userName = localStorage.getItem("userName")
+
 
     return (
         <>

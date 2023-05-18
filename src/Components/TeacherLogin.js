@@ -21,6 +21,8 @@ const TeacherLogin = (props) => {
     const [lableVerifyOtp, setLableVerifyOtp] = useState("")
     const [hideCaptcha, setHideCaptcha] = useState("")
 
+    const [userName,setUserName] = useState()
+
     const navigate = useNavigate()
 
     // Reserve States For Signup Credentials
@@ -93,13 +95,14 @@ const TeacherLogin = (props) => {
     ]
 
     const tNumber = []
+    const tName = []
 
     useEffect(()=>{
         faculty.map((ele)=>{
             tNumber.push(ele.facultyNumber)
+            tName.push(ele.facultyName)
         })
-    })
-        
+    }) 
 
 
     const otpClick = (e) => {
@@ -138,6 +141,7 @@ const TeacherLogin = (props) => {
             if (user) {
                 localStorage.setItem("token", user?.accessToken)
                 localStorage.setItem("emailId", user?.email)
+                localStorage.setItem("phone", user?.phoneNumber)
                 localStorage.setItem("userName", user?.displayName)
                 localStorage.setItem("userId", user?.uid)
                 localStorage.setItem("database", user?.auth.app._options.databaseURL)
@@ -156,12 +160,12 @@ const TeacherLogin = (props) => {
             window.confirmationResult.confirm(otpInput).then((result) => {
                 // User signed in successfully.
                 const user = result.user;
-                console.log(user, "8888888")
-                setLocalStorage()
-                toast.success("Log in Successfully")
+                console.log(user, "8888888")  
                 updateDisplayName()
+                setLocalStorage()
+                // toast.success("Log in Successfully")
                 props.handleCallBack(true)
-                navigate("/dashboard")
+                navigate("/facultydashboard")
 
                 // ...
             }).catch((error) => {
@@ -198,6 +202,7 @@ const TeacherLogin = (props) => {
 
             if (tNumber.includes(mobileInput)) {
                 setHideCaptcha("")
+                setUserName(tName[tNumber.indexOf(mobileInput)])
                 onCaptchaVerify()
                 const appVerifier = window.recaptchaVerifier
                 console.log(appVerifier)
@@ -254,13 +259,13 @@ const TeacherLogin = (props) => {
     }
 
     const updateDisplayName = () => {
-        // updateProfile(auth.currentUser, {
-        //     displayName: teacher.fname
-        // }).then(() => {
-        //     console.log("Display Name Updated")
-        // }).catch((error) => {
-        //     console.log(error)
-        // });
+        updateProfile(auth.currentUser, {
+            displayName: userName
+        }).then(() => {
+            console.log("Display Name Updated")
+        }).catch((error) => {
+            console.log(error)
+        });
     }
 
 
