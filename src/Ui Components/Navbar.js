@@ -71,6 +71,7 @@ const Navbar = ({ handleLogOut,newCallBack }) => {
     };
     
     const userName = localStorage.getItem("userName")
+  const phone = localStorage.getItem("phone")
 
 
     return (
@@ -86,9 +87,9 @@ const Navbar = ({ handleLogOut,newCallBack }) => {
                         <ul className="navbar-nav ml-auto">
                             {/* <li className="nav-item active"><Link  className="nav-link" onClick={()=>{newCallBack("")}}>Home</Link></li> */}
                             <li className="nav-item"><Link  className="nav-link" onClick={()=>{newCallBack("")}}>Home</Link></li>
-                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("queans")}}>Que & Ans</Link></li>
-                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("notes")}}>Notes</Link></li>
-                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("testpapers")}}>Test Papers</Link></li>
+                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("queans")}}>Que & Ans</Link></li>:<></>}
+                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("notes")}}>Notes</Link></li>:<li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("givenote")}}>Give Note</Link></li>}
+                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("testpapers")}}>Test Papers</Link></li>:<></>}
                             <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("feedback")}}>Feedback</Link></li>
                         </ul>
                         <div id='profile'>

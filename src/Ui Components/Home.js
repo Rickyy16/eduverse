@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import bg from "../Img/bg.png"
 
-const Home = () => {
+const Home = ({newCallBack}) => {
+  const phone = localStorage.getItem("phone")
   return (
     <>
       {/* ---Hero---- */}
@@ -15,7 +16,7 @@ const Home = () => {
               <span className="subheading text-dark">Welcome to EduVerse</span>
               <h1 className="mb-4 text-dark">Online Learning Platform for Khaitan Students </h1>
               <p className="caps text-dark">Our Major Project will help our college students for their better learning and course understanding.</p>
-              <p className="mb-0 "><Link to="/notes" className="btn btn-primary">Take Notes</Link> <Link to="/contact" className="btn btn-white">Contact Us</Link></p>
+              <p className="mb-0 ">{!phone?<Link onClick={()=>{newCallBack("notes")}} className="btn btn-primary">Take Notes</Link>:<Link onClick={()=>{newCallBack("givenote")}} className="btn btn-primary">Give Notes</Link>} <Link onClick={()=>{newCallBack("feedback")}} className="btn btn-white">Contact Us</Link></p>
             </div>
           </div>
         </div>

@@ -1,86 +1,7 @@
-import React, { useState } from 'react';
-// import { Button } from '@material-ui/core';
-import AddIcon from "@mui/icons-material/Add";
-import Notesn from './Notesn';
+import React from 'react';
 import bg from "../Img/notes-bg.jpg"
 
 const Notes = () => {
-
-  const [note, setNote] = useState({ inputTitle: "", inputText: "" });
-  const [noteArr, setNoteArr] = useState([]);
-
-  const [expand ,setExpand] = useState(false);
-
-
-  const fullExpand = ()=>{
-      return(
-          setExpand(!expand)
-      )
-  }
-
-  const inputEvent = (event) => {
-      // const name = event.target.name;
-      // const value = event.target.value;
-
-      const { name, value } = event.target;
-
-      return (
-          setNote((preval) => {
-              return {
-                  ...preval,
-                  [name]: value
-              }
-          })
-      )
-  }
-
-  const addNote = () => {
-
-      if (note.inputTitle === "" && note.inputText === "") {
-          return alert("please Write Something")
-      }
-      else if (note.inputTitle === "") {
-          return alert("please Give Title Name")
-      }
-      else if (note.inputText === "") {
-          return alert("please Write Something in it. Its a Empty Note")
-      }
-      else {
-          return (
-              setNoteArr((prev) => {
-                  return [
-                      ...prev, note
-                  ]
-              }),
-              setNote({ inputTitle: "", inputText: "" })
-
-          )
-      }
-  }
-
-  const deleteNote = (id) => {
-
-      return (
-          setNoteArr((prev) => {
-              return (
-                  prev.filter((elem, index) => {
-                      return index !== id
-                  })
-              )
-          })
-
-      )
-  }
-
-  const notess = () => {
-      return (
-          noteArr.map((elem, index) => {
-              return (
-                  <Notesn key={index} id={index} theTitle={elem.inputTitle} theText={elem.inputText} delete={deleteNote} />
-              )
-          })
-      )
-  }
 
   return (
     <>
@@ -100,20 +21,6 @@ const Notes = () => {
       </div>
 
       {/* ---Hero-End---- */}
-
-      {/* ------------------------*/}
-
-      <div className='main_note'>
-        <form>
-          {expand ? (<input name="inputTitle" type="text" placeholder='Title' autoComplete='off' onChange={inputEvent} value={note.inputTitle} />) : <></>}
-          <textarea name="inputText" rows="" column="" placeholder='Write a Note...' onClick={fullExpand} onChange={inputEvent} value={note.inputText}></textarea>
-          {expand ? (<button onClick={addNote}>
-            <AddIcon className='plus-sign'></AddIcon>
-          </button>) : <></>}
-        </form>
-      </div>
-      {notess()}
-      {/* ------------------------ */}
 
       <section className="ftco-section">
         <div className="row justify-content-center pb-4">

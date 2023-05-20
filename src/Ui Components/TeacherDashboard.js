@@ -15,6 +15,7 @@ import QueAns from "./QueAns";
 import Notes from "./Notes";
 import TestPapers from "./TestPapers";
 import Feedback from "./Feedback";
+import GiveNote from './GiveNote';
 
 
 const TeacherDashboard = (props) => {
@@ -60,7 +61,7 @@ const TeacherDashboard = (props) => {
             removeLocalStorage()
             toast.success("Log Out Succesfully")
             props.handleCallBack(false)
-            navigate("/facultydashboard")
+            navigate("/dashboard")
         }).catch((error) => {
             // An error happened.
             toast.error(error.message)
@@ -127,9 +128,10 @@ const TeacherDashboard = (props) => {
 
                     {/* ------Main------- */}
 
-                    {activePage === "" && <Home />}
+                    {activePage === "" && <Home  newCallBack={callBack} />}
                     {activePage === "queans" && <QueAns />}
                     {activePage === "notes" && <Notes />}
+                    {activePage === "givenote" && <GiveNote />}
                     {activePage === "testpapers" && <TestPapers />}
                     {activePage === "feedback" && <Feedback />}
 

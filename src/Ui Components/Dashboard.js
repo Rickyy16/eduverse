@@ -120,7 +120,7 @@ const Dashboard = (props) => {
 
                     {/* ------Main------- */}
 
-                    {activePage==="" && <Home />}
+                    {activePage==="" && <Home newCallBack={callBack} />}
                     {activePage==="queans" && <QueAns />}
                     {activePage==="notes" && <Notes />}
                     {activePage==="testpapers" && <TestPapers />}
