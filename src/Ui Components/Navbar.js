@@ -73,6 +73,10 @@ const Navbar = ({ handleLogOut,newCallBack }) => {
     const userName = localStorage.getItem("userName")
   const phone = localStorage.getItem("phone")
 
+  const scrollToTop = () => {
+    return window.scrollTo(0, 0);
+}
+
 
     return (
         <>
@@ -86,11 +90,11 @@ const Navbar = ({ handleLogOut,newCallBack }) => {
                     <div class="collapse navbar-collapse" id="col-nav">
                         <ul className="navbar-nav ml-auto">
                             {/* <li className="nav-item active"><Link  className="nav-link" onClick={()=>{newCallBack("")}}>Home</Link></li> */}
-                            <li className="nav-item"><Link  className="nav-link" onClick={()=>{newCallBack("")}}>Home</Link></li>
-                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("queans")}}>Que & Ans</Link></li>:<></>}
-                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("notes")}}>Notes</Link></li>:<li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("givenote")}}>Give Note</Link></li>}
-                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("testpapers")}}>Test Papers</Link></li>:<></>}
-                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{newCallBack("feedback")}}>Feedback</Link></li>
+                            <li className="nav-item"><Link  className="nav-link" onClick={()=>{return (newCallBack(""), scrollToTop(),setToggle(!toggle))}}>Home</Link></li>
+                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return (newCallBack("queans"), scrollToTop(),setToggle(!toggle))}}>Que & Ans</Link></li>:<></>}
+                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return(newCallBack("notes"), scrollToTop(),setToggle(!toggle))}}>Notes</Link></li>:<li className="nav-item"><Link  className="nav-link"  onClick={()=>{return (newCallBack("givenote"), scrollToTop(),setToggle(!toggle))}}>Give Note</Link></li>}
+                           {!phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return(newCallBack("testpapers"), scrollToTop(),setToggle(!toggle))}}>Test Papers</Link></li>:<></>}
+                            <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return (newCallBack("feedback"), scrollToTop(),setToggle(!toggle))}}>Feedback</Link></li>
                         </ul>
                         <div id='profile'>
                             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
