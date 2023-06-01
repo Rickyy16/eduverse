@@ -1,26 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import bg from "../Img/bg.png"
+import Hero from './Hero'
 
-const Home = ({newCallBack}) => {
-  const phone = localStorage.getItem("phone")
+const Home = ({newCallBack,activePage}) => {
   return (
     <>
       {/* ---Hero---- */}
 
-      <div className="hero-wrap js-fullheight d-flex align-items-center" style={{ backgroundImage: `url(${bg})` }}>
-        <div className="overlay" />
-        <div className="container">
-          <div className="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
-            <div className="col-md-7">
-              <span className="subheading text-dark">Welcome to EduVerse</span>
-              <h1 className="mb-4 text-dark">Online Learning Platform for Khaitan Students </h1>
-              <p className="caps text-dark">Our Major Project will help our college students for their better learning and course understanding.</p>
-              <p className="mb-0 ">{!phone?<Link onClick={()=>{newCallBack("notes")}} className="btn btn-primary">Take Notes</Link>:<Link onClick={()=>{newCallBack("givenote")}} className="btn btn-primary">Give Notes</Link>} <Link onClick={()=>{newCallBack("feedback")}} className="btn btn-white">Contact Us</Link></p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Hero newCallBack={newCallBack} bg={bg} suphead="Welcome to EduVerse" head="Online Learning Platform for Khaitan Students " subhead="Our Major Project will help our college students for their better learning and course understanding." activePage={activePage}  />
 
       {/* ---Hero-End---- */}
 

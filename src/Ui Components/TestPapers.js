@@ -1,23 +1,13 @@
 import React from 'react'
 import bg from "../Img/bg.png"
+import Hero from './Hero'
 
 const TestPapers = () => {
   return (
     <>
     {/* ---Hero---- */}
 
-    <div className="hero-wrap js-fullheight d-flex align-items-center" style={{ backgroundImage: `url(${bg})` }}>
-        <div className="overlay" />
-        <div className="container">
-          <div className="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
-            <div className="col-md-7">
-              <span className="subheading text-dark">TestPapers</span>
-              <h1 className="mb-4 text-dark">Get Previous Year TestPapers </h1>
-              {/* <p className="caps text-dark">Our Major Project will help our college students for their better learning and course understanding.</p> */}
-            </div>
-          </div>
-        </div>
-      </div>
+    <Hero bg={bg} suphead="TestPapers" head="Get Previous Year TestPapers  "   />
 
       {/* ---Hero-End---- */}
 

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { signOut } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase';
-import { toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import $ from 'jquery';
 import "../Css/Dashboard.css"
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -15,6 +15,7 @@ import QueAns from "./QueAns";
 import Notes from "./Notes";
 import TestPapers from "./TestPapers";
 import Feedback from "./Feedback";
+import GiveNote from './GiveNote';
 
 
 const Dashboard = (props) => {
@@ -23,6 +24,8 @@ const Dashboard = (props) => {
 
     const [activePage, setActivePage] = useState("")
 
+    const userName= localStorage.getItem("userName")
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -30,15 +33,25 @@ const Dashboard = (props) => {
         setTimeout(() => {
             setLoading(false)
         }, 2000)
+        // if(props.log){
+        //     setTimeout(() => {
+        //         toast(`Welcome! ${userName}`, {
+        //             icon: '👋',
+        //           });
+        //     }, 3000)
+        // }
+        scrollWindow();
     }, []);
+
+
 
     const removeLocalStorage = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("emailId")
+        localStorage.removeItem("phone")
         localStorage.removeItem("userName")
         localStorage.removeItem("userId")
         localStorage.removeItem("database")
-        // localStorage.removeItem("_grecaptcha")
     }
 
     const handleLogOut = () => {
@@ -103,10 +116,6 @@ const Dashboard = (props) => {
         });
     };
 
-    useEffect(() => {
-        scrollWindow();
-    }, []);
-
 
     return (
         <>
@@ -120,9 +129,10 @@ const Dashboard = (props) => {
 
                     {/* ------Main------- */}
 
-                    {activePage==="" && <Home newCallBack={callBack} />}
+                    {activePage==="" && <Home newCallBack={callBack} activePage={activePage} />}
                     {activePage==="queans" && <QueAns />}
                     {activePage==="notes" && <Notes />}
+                    {activePage === "givenote" && <GiveNote />}
                     {activePage==="testpapers" && <TestPapers />}
                     {activePage==="feedback" && <Feedback />}
 
@@ -131,14 +141,15 @@ const Dashboard = (props) => {
                     {/* Footer */}
 
                     <Footer />
+                    <Toaster
+                        position="top-center"
+                        reverseOrder={false}
+                    />
 
                     {/* Footer End */}
                 </>
 
             }
-
-
-
 
         </>
     )

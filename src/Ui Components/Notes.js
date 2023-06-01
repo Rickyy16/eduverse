@@ -1,5 +1,6 @@
 import React from 'react';
 import bg from "../Img/notes-bg.jpg"
+import Hero from './Hero';
 
 const Notes = () => {
 
@@ -7,18 +8,7 @@ const Notes = () => {
     <>
       {/* ---Hero---- */}
 
-      <div className="hero-wrap js-fullheight d-flex align-items-center" style={{ backgroundImage: `url(${bg})` }}>
-        <div className="overlay" />
-        <div className="container">
-          <div className="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
-            <div className="col-md-7">
-              <span className="subheading text-dark">Notes</span>
-              <h1 className="mb-4 text-dark">Take Specialised Notes To Make Your Learning Better</h1>
-              {/* <p className="caps text-dark">Our Major Project will help our college students for their better learning and course understanding.</p> */}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Hero bg={bg} suphead="Notes" head="Take Specialised Notes To Make Your Learning Better "   />
 
       {/* ---Hero-End---- */}
 

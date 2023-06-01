@@ -165,7 +165,7 @@ const TeacherLogin = (props) => {
                 setLocalStorage()
                 // toast.success("Log in Successfully")
                 props.handleCallBack(true)
-                navigate("/facultydashboard")
+                navigate("/dashboard")
 
                 // ...
             }).catch((error) => {

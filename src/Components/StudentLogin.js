@@ -104,6 +104,7 @@ const StudentLogin = (props) => {
                 localStorage.setItem("userName", user?.displayName)
                 localStorage.setItem("userId", user?.uid)
                 localStorage.setItem("database", user?.auth.app._options.databaseURL)
+                localStorage.removeItem("phone")
             }
             else {
                 console.log("LocalStorage No Data")
