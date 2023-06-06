@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { signOut } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import $ from 'jquery';
 import "../Css/Dashboard.css"
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -16,15 +16,31 @@ import Notes from "./Notes";
 import TestPapers from "./TestPapers";
 import Feedback from "./Feedback";
 import GiveNote from './GiveNote';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
-const Dashboard = (props) => {
+const Dashboard = ({ handleCallBack, log, userName }) => {
 
     const [loading, setLoading] = useState(false)
 
     const [activePage, setActivePage] = useState("")
+    const [open, setOpen] = React.useState(false);
+    const [snack, setSnack] = useState(true)
 
-    const userName= localStorage.getItem("userName")
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const navigate = useNavigate()
 
@@ -32,17 +48,18 @@ const Dashboard = (props) => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-        }, 2000)
-        // if(props.log){
-        //     setTimeout(() => {
-        //         toast(`Welcome! ${userName}`, {
-        //             icon: '👋',
-        //           });
-        //     }, 3000)
-        // }
-        scrollWindow();
-    }, []);
+        }, 1200)
 
+        if (log) {
+            setTimeout(() => {
+                setSnack(false)
+            }, 4000)
+        }
+        else{
+            setSnack(false) 
+        }
+        scrollWindow()
+    }, []);
 
 
     const removeLocalStorage = () => {
@@ -60,10 +77,9 @@ const Dashboard = (props) => {
             console.log("Sign Out Succesfully")
             removeLocalStorage()
             toast.success("Log Out Succesfully")
-            props.handleCallBack(false)
-            navigate("/dashboard")
+            handleCallBack(false)
+            navigate("/")
         }).catch((error) => {
-            // An error happened.
             toast.error(error.message)
         });
     }
@@ -124,27 +140,52 @@ const Dashboard = (props) => {
                 <>
 
                     {/* ------ Navbar ------ */}
-                    <Navbar handleLogOut={handleLogOut} newCallBack={callBack} />
+                    <Navbar newCallBack={callBack} handleClickOpen={handleClickOpen} />
                     {/* ------ Navbar End ------ */}
 
                     {/* ------Main------- */}
 
-                    {activePage==="" && <Home newCallBack={callBack} activePage={activePage} />}
-                    {activePage==="queans" && <QueAns />}
-                    {activePage==="notes" && <Notes />}
+                    {activePage === "" && <Home newCallBack={callBack} activePage={activePage} />}
+                    {activePage === "queans" && <QueAns />}
+                    {activePage === "notes" && <Notes />}
                     {activePage === "givenote" && <GiveNote />}
-                    {activePage==="testpapers" && <TestPapers />}
-                    {activePage==="feedback" && <Feedback />}
+                    {activePage === "testpapers" && <TestPapers />}
+                    {activePage === "feedback" && <Feedback />}
 
                     {/* ------Main End------- */}
 
                     {/* Footer */}
 
                     <Footer />
-                    <Toaster
-                        position="top-center"
-                        reverseOrder={false}
-                    />
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        id="dialog"
+                    >
+                        <h4 className="dialog-title">
+                            Do you want to Log Out?
+                        </h4>
+                        <div className='d-flex flex-row justify-content-between dialog-btns'>
+                            <Button variant="outlined" color="error" onClick={handleClose}>
+                                Cancel
+                            </Button>
+                            <Button variant="outlined" color="secondary" onClick={handleLogOut}>
+                                Log Out
+                            </Button>
+                        </div>
+                    </Dialog>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        open={snack}
+                        key={"top" + "center"}
+                    >
+                        <Alert sx={{ width: '100%', backgroundColor: "#eae1f0", color: "#1e1d1f" }}>
+                            Welcome! {userName}
+                        </Alert>
+                    </Snackbar>
 
                     {/* Footer End */}
                 </>

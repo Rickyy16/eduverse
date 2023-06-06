@@ -1,25 +1,27 @@
 import React from 'react'
 import bg from "../Img/bg.png"
 import Hero from './Hero'
+import { useNavigate } from 'react-router-dom'
 
-const Home = ({newCallBack,activePage}) => {
+const Home = ({ newCallBack, activePage }) => {
+  const navigate = useNavigate("")
   return (
     <>
       {/* ---Hero---- */}
 
-      <Hero newCallBack={newCallBack} bg={bg} suphead="Welcome to EduVerse" head="Online Learning Platform for Khaitan Students " subhead="Our Major Project will help our college students for their better learning and course understanding." activePage={activePage}  />
+      <Hero newCallBack={newCallBack} bg={bg} suphead="Welcome to EduVerse" head="Online Learning Platform for Khaitan Students " subhead="Our Major Project will help our college students for their better learning and course understanding." activePage={activePage} />
 
       {/* ---Hero-End---- */}
 
       <section className="ftco-section">
         <div className="row justify-content-center pb-4">
-            <div className="col-md-12 heading-section text-center">
-              <span className="subheading">Start Learning</span>
-              <h2 className="mb-4">Browse By Semester</h2>
-            </div>
+          <div className="col-md-12 heading-section text-center">
+            <span className="subheading">Start Learning</span>
+            <h2 className="mb-4">Browse By Semester</h2>
           </div>
+        </div>
         <div className="container containerr row">
-          <div className="card col-lg-3 col-md-5 col-sm-8">
+          <div className="card col-lg-3 col-md-5 col-sm-8" onClick={() => { navigate("/semester1") }}>
             <div className="face face1">
               <div className="content">
                 <span className="stars" />
@@ -31,9 +33,10 @@ const Home = ({newCallBack,activePage}) => {
               <h2>01</h2>
             </div>
           </div>
-          <div className="card col-lg-3 col-md-5 col-sm-8">
+
+          <div className="card col-lg-3 col-md-5 col-sm-8" onClick={() => { navigate("/semester2") }}>
             <div className="face face1">
-            <div className="content">
+              <div className="content">
                 <span className="stars" />
                 <h2 className="java">2nd Semester</h2>
                 <p className="java">6 Subjects</p>
@@ -43,9 +46,9 @@ const Home = ({newCallBack,activePage}) => {
               <h2>02</h2>
             </div>
           </div>
-          <div className="card col-lg-3 col-md-5 col-sm-8">
+          <div className="card col-lg-3 col-md-5 col-sm-8" onClick={() => { navigate("/semester3") }}>
             <div className="face face1">
-            <div className="content">
+              <div className="content">
                 <span className="stars" />
                 <h2 className="cSharp">3rd Semester</h2>
                 <p className="cSharp">5 Subjects</p>
@@ -58,9 +61,9 @@ const Home = ({newCallBack,activePage}) => {
         </div>
 
         <div className="container containerr-2 row">
-          <div className="card col-lg-3 col-md-5 col-sm-8">
+          <div className="card col-lg-3 col-md-5 col-sm-8" onClick={() => { navigate("/semester4") }}>
             <div className="face face1">
-            <div className="content">
+              <div className="content">
                 <span className="stars" />
                 <h2 className="python">4th Semester</h2>
                 <p className="python">6 Subjects</p>
@@ -70,9 +73,9 @@ const Home = ({newCallBack,activePage}) => {
               <h2>04</h2>
             </div>
           </div>
-          <div className="card col-lg-3 col-md-5 col-sm-8">
+          <div className="card col-lg-3 col-md-5 col-sm-8" onClick={() => { navigate("/semester5") }}>
             <div className="face face1">
-            <div className="content">
+              <div className="content">
                 <span className="stars" />
                 <h2 className="cSharp">5th Semester</h2>
                 <p className="cSharp">5 Subjects</p>
@@ -82,7 +85,7 @@ const Home = ({newCallBack,activePage}) => {
               <h2>05</h2>
             </div>
           </div>
-          <div className="card col-lg-3 col-md-5 col-sm-8">
+          <div className="card col-lg-3 col-md-5 col-sm-8" onClick={() => { navigate("/semester6") }}>
             <div className="face face1">
               <div className="content">
                 <span className="stars" />

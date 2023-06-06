@@ -21,7 +21,7 @@ import profilePic from "../Img/profile.jpg"
 import logo from "../Img/logo-no-background.png"
 
 
-const Navbar = ({ handleLogOut,newCallBack }) => {
+const Navbar = ({newCallBack,handleClickOpen }) => {
 
     const [toggle, setToggle] = useState(false)
 
@@ -169,7 +169,7 @@ const Navbar = ({ handleLogOut,newCallBack }) => {
                                     </ListItemIcon>
                                     Settings
                                 </MenuItem>
-                                <MenuItem onClick={handleLogOut}>
+                                <MenuItem onClick={handleClickOpen}>
                                     <ListItemIcon>
                                         <Logout fontSize="small" />
                                     </ListItemIcon>
