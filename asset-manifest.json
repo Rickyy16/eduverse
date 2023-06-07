@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.08175391.css",
-    "main.js": "/static/js/main.8d78054d.js",
-    "static/js/787.fcc7f777.chunk.js": "/static/js/787.fcc7f777.chunk.js",
-    "static/media/bg.png": "/static/media/bg.471eb593ad51b557ee27.png",
-    "static/media/queans-bg.jpg": "/static/media/queans-bg.42147926923858e36461.jpg",
-    "static/media/landingbg3.jpg": "/static/media/landingbg3.7f709403d7cbed378cf0.jpg",
-    "static/media/notes-bg.jpg": "/static/media/notes-bg.f4748b8dab56b2a9cafc.jpg",
-    "static/media/logo-no-background.png": "/static/media/logo-no-background.d5c4d7a5aaaab59dfd21.png",
-    "static/media/teacherimg.svg": "/static/media/teacherimg.8040cda8636c083be11326beb749797f.svg",
-    "index.html": "/index.html",
-    "static/media/studentimg.svg": "/static/media/studentimg.cc8d7fa2d7cb4e5b8bc49bcdef196276.svg",
-    "main.08175391.css.map": "/static/css/main.08175391.css.map",
-    "main.8d78054d.js.map": "/static/js/main.8d78054d.js.map",
-    "787.fcc7f777.chunk.js.map": "/static/js/787.fcc7f777.chunk.js.map"
+    "main.css": "/eduverse/static/css/main.6e36b709.css",
+    "main.js": "/eduverse/static/js/main.04aa5f86.js",
+    "static/js/787.fcc7f777.chunk.js": "/eduverse/static/js/787.fcc7f777.chunk.js",
+    "static/media/bg.png": "/eduverse/static/media/bg.471eb593ad51b557ee27.png",
+    "static/media/queans-bg.jpg": "/eduverse/static/media/queans-bg.42147926923858e36461.jpg",
+    "static/media/landingbg3.jpg": "/eduverse/static/media/landingbg3.7f709403d7cbed378cf0.jpg",
+    "static/media/notes-bg.jpg": "/eduverse/static/media/notes-bg.f4748b8dab56b2a9cafc.jpg",
+    "static/media/logo-no-background.png": "/eduverse/static/media/logo-no-background.d5c4d7a5aaaab59dfd21.png",
+    "static/media/teacherimg.svg": "/eduverse/static/media/teacherimg.8040cda8636c083be11326beb749797f.svg",
+    "index.html": "/eduverse/index.html",
+    "static/media/studentimg.svg": "/eduverse/static/media/studentimg.cc8d7fa2d7cb4e5b8bc49bcdef196276.svg",
+    "main.6e36b709.css.map": "/eduverse/static/css/main.6e36b709.css.map",
+    "main.04aa5f86.js.map": "/eduverse/static/js/main.04aa5f86.js.map",
+    "787.fcc7f777.chunk.js.map": "/eduverse/static/js/787.fcc7f777.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.08175391.css",
-    "static/js/main.8d78054d.js"
+    "static/css/main.6e36b709.css",
+    "static/js/main.04aa5f86.js"
   ]
 }
