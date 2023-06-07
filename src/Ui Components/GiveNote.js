@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Button } from '@material-ui/core';
 import AddIcon from "@mui/icons-material/Add";
 import NoteList from './NoteList';
@@ -10,9 +10,11 @@ const GiveNote = () => {
 
     const [note, setNote] = useState({ inputTitle: "", inputText: "" });
     const [noteArr, setNoteArr] = useState([]);
-
     const [expand, setExpand] = useState(false);
 
+    useEffect(()=>{
+        localStorage.setItem('notifications', JSON.stringify(noteArr));
+    },[noteArr])
 
     const fullExpand = () => {
         return (
