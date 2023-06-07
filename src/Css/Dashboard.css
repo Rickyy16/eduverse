@@ -12873,6 +12873,7 @@ h5,
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .containerr-2 .card .face.face1 {
   box-sizing: border-box;
