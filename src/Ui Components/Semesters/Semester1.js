@@ -46,7 +46,7 @@ const Semesters = () => {
   return (
     <>
      <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider',overflowX:"scroll" }}>
         <Tabs value={value} onChange={handleChange}  textColor="secondary"
         indicatorColor="secondary" centered>
           <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 1st" {...a11yProps(0)} />
@@ -57,6 +57,7 @@ const Semesters = () => {
       </Box>
       <TabPanel value={value} index={0}>
         Item One
+
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
