@@ -70,7 +70,7 @@ const Footer = () => {
                 {/* Grid container */}
                 {/* Copyright */}
                 <div className="text-center text-light p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-                    © Copyright : Crafted By <Link style={{ color: "#e9d9ff" }} to="https://instagram.com/mohit_shrma07?igshid=ZGUzMzM3NWJiOQ==">Mohit</Link> & <Link style={{ color: "#e9d9ff" }} to="https://instagram.com/1_.aman._1?igshid=NTc4MTIwNjQ2YQ==">Aman</Link>
+                    © Copyright : Crafted By <Link style={{ color: "#e9d9ff" }} to="/">Our Team</Link>
                 </div>
                 {/* Copyright */}
             </footer>
