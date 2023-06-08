@@ -53,10 +53,10 @@ const Semesters = () => {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange}  textColor="secondary"
         indicatorColor="secondary" centered>
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 1st" {...a11yProps(0)} />
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 2nd" {...a11yProps(1)} />
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 3rd" {...a11yProps(2)} />
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 4th" {...a11yProps(3)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="CS 6111" {...a11yProps(0)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="CS 6200" {...a11yProps(1)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="CS 6300" {...a11yProps(2)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="CS 6001" {...a11yProps(3)} />
          </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

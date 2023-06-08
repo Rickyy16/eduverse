@@ -11,7 +11,7 @@ import Loader from './Loader';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Home from './Home';
-import QueAns from "./QueAns";
+import Notifications from "./Notifications";
 import Notes from "./Notes";
 import TestPapers from "./TestPapers";
 import Feedback from "./Feedback";
@@ -146,7 +146,7 @@ const Dashboard = ({ handleCallBack, log, userName }) => {
                     {/* ------Main------- */}
 
                     {activePage === "" && <Home newCallBack={callBack} activePage={activePage} />}
-                    {activePage === "queans" && <QueAns />}
+                    {activePage === "notifications" && <Notifications />}
                     {activePage === "notes" && <Notes />}
                     {activePage === "givenote" && <GiveNote />}
                     {activePage === "testpapers" && <TestPapers />}

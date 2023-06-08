@@ -53,12 +53,11 @@ const Semesters = () => {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange}  textColor="secondary"
         indicatorColor="secondary" centered>
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 1st" {...a11yProps(0)} />
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 2nd" {...a11yProps(1)} />
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 3rd" {...a11yProps(2)} />
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 4th" {...a11yProps(3)} />
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 5th" {...a11yProps(4)} />
-          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="Chapter 6th" {...a11yProps(5)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="2001" {...a11yProps(0)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="2002" {...a11yProps(1)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="2003" {...a11yProps(2)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="2004" {...a11yProps(3)} />
+          <Tab sx={{ fontWeight:"600",fontSize:"18px" }} label="2005" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -76,9 +75,12 @@ const Semesters = () => {
       <TabPanel value={value} index={4}>
       <iframe src={pdf2003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
+<<<<<<< HEAD
       <TabPanel value={value} index={5}>
       <iframe src={pdf2003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
+=======
+>>>>>>> 16742ce0bc57c192b9ce2dc48176fc559a494f24
     </Box>
     </>
   )

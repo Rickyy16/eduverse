@@ -39,6 +39,7 @@ const Routing = () => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/eduverse/" element={<Navigate to="/" />} />
                 <Route path="/" element={!userId || !database ? <Landing /> : <Navigate to="/dashboard" />} />
                 <Route path="/studentlogin" element={!userId || !database ? <StudentLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />
                 <Route path="/teacherlogin" element={!userId || !database ? <TeacherLogin handleCallBack={callBack} /> : <Navigate to="/dashboard" />} />

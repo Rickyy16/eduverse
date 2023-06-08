@@ -91,7 +91,7 @@ const Navbar = ({newCallBack,handleClickOpen }) => {
                         <ul className="navbar-nav ml-auto">
                             {/* <li className="nav-item active"><Link  className="nav-link" onClick={()=>{newCallBack("")}}>Home</Link></li> */}
                             <li className="nav-item"><Link  className="nav-link" onClick={()=>{return (newCallBack(""), scrollToTop(),setToggle(!toggle))}}>Home</Link></li>
-                           {phone? <></> : <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return (newCallBack("queans"), scrollToTop(),setToggle(!toggle))}}>Que & Ans</Link></li>}
+                           {phone? <></> : <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return (newCallBack("notifications"), scrollToTop(),setToggle(!toggle))}}>Notifications</Link></li>}
                            {phone? <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return (newCallBack("givenote"), scrollToTop(),setToggle(!toggle))}}>Give Note</Link></li>: <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return(newCallBack("notes"), scrollToTop(),setToggle(!toggle))}}>Notes</Link></li>}
                            {phone? <></> : <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return(newCallBack("testpapers"), scrollToTop(),setToggle(!toggle))}}>Test Papers</Link></li>}
                             <li className="nav-item"><Link  className="nav-link"  onClick={()=>{return (newCallBack("feedback"), scrollToTop(),setToggle(!toggle))}}>Feedback</Link></li>
