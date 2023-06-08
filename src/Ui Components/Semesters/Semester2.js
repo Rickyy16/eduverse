@@ -75,12 +75,6 @@ const Semesters = () => {
       <TabPanel value={value} index={4}>
       <iframe src={pdf2003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
-<<<<<<< HEAD
-      <TabPanel value={value} index={5}>
-      <iframe src={pdf2003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
-      </TabPanel>
-=======
->>>>>>> 16742ce0bc57c192b9ce2dc48176fc559a494f24
     </Box>
     </>
   )
