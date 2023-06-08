@@ -4,6 +4,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import pdf2001 from "../../Img/pdf/Maths 2002 Tut File All.pdf"
+import pdf2002 from "../../Img/pdf/Physics 2002 All tuts 1 to 10.pdf"
+import pdf2003 from "../../Img/pdf/Mechanics 2005 All Tuts .pdf"
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,22 +62,22 @@ const Semesters = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Item One
+      <iframe src={pdf2001} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+      <iframe src={pdf2002} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+      <iframe src={pdf2003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item One
+      <iframe src={pdf2003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Item Two
+      <iframe src={pdf2003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Item Three
+      <iframe src={pdf2003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
     </Box>
     </>

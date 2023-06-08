@@ -4,6 +4,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import pdf1001 from "../../Img/pdf/all-1-year-mathematics-1-1001-nov-2022.pdf"
+import pdf1002 from "../../Img/pdf/all-1-year-applied-physics-1-1002-nov-2022.pdf"
+import pdf1003 from "../../Img/pdf/all-1-year-applied-chemistry-1003-nov-2022.pdf"
+import pdf1004 from "../../Img/pdf/all-1-year-communication-skills-in-english-1004-nov-2022.pdf"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,16 +60,16 @@ const Semesters = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Item One
+      <iframe src={pdf1001} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+      <iframe src={pdf1002} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+      <iframe src={pdf1003} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Four
+      <iframe src={pdf1004} style={{width: "100%",height: "100vh",border: "none"}}></iframe>
       </TabPanel>
     </Box>
     </>
